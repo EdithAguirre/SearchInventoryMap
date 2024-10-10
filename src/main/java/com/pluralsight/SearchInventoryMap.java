@@ -19,18 +19,32 @@ public class SearchInventoryMap {
         // Create scanner to receive user input
         Scanner scanner = new Scanner(System.in);
 
-        // Prompt user to search product they are interested in by typing the product name
-        System.out.print("What item are you interested in? (Type in the product name): ");
-        String productName = scanner.nextLine().trim();
+        // Keep repeating the search as long as they answer yes to the question
+        do {
+            // Prompt user to search product they are interested in by typing the product name
+            System.out.print("What item are you interested in? (Type in the product name): ");
+            String productName = scanner.nextLine().trim();
 
-        // Check to see if the item they entered is in the inventory
-        Product matchedProduct = inventory.get(productName);
-        if (matchedProduct == null) {
-            System.out.println("We don't carry that product");
-            return;
-        }
-        System.out.printf("We carry %s and the price is $%.2f",
-                matchedProduct.getName(), matchedProduct.getPrice());
+            // Check to see if the item they entered is in the inventory
+            Product matchedProduct = inventory.get(productName);
+            if (matchedProduct == null) {
+                System.out.println("We don't carry that product");
+            }
+            else {
+                System.out.printf("We carry %s and the price is $%.2f\n",
+                        matchedProduct.getName(), matchedProduct.getPrice());
+            }
+
+            // BONUS: Write code to let the user look up more than one product. After the
+            //program displays the results of the search, ask the user "Do you want to search
+            //again?". Keep repeating the search as long as they answer yes to the question.
+            System.out.print("Do you want to search again? (Press any key if yes, press X to exit): ");
+            String option = scanner.nextLine().trim();
+
+            if(option.equalsIgnoreCase("X")) {
+                System.exit(0);
+            }
+        }while(true);
     }
 
     //  Method to load all the products from the Inventory.csv file to HashMap
